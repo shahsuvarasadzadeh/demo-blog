@@ -3,6 +3,7 @@ package com.example.demoblog.controller;
 import com.example.demoblog.GenericResponse;
 import com.example.demoblog.dto.PostCreateDTO;
 import com.example.demoblog.dto.PostDTO;
+import com.example.demoblog.dto.PostUpdateDTO;
 import com.example.demoblog.service.PostInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,4 +29,14 @@ public class Main {
         return ResponseEntity.ok(postDTOS);
     }
 
+    @DeleteMapping("/v1/delete/{id}")
+    public ResponseEntity<?>deleteUserById(@PathVariable Long id){
+        postInterface.deletePostById(id);
+        return ResponseEntity.ok(new GenericResponse("user deleted"));
+    }
+    @PutMapping("/v1/update/{id}")
+    public ResponseEntity<PostDTO>deleteByName(@PathVariable Long id , @RequestBody PostUpdateDTO postUpdateDTO){
+        final PostDTO postDTO=postInterface.updatePost(id,postUpdateDTO);
+        return ResponseEntity.ok(postDTO);
+    }
 }
